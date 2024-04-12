@@ -28,11 +28,12 @@ import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import com.example.hospitalaid.R
 import com.example.hospitalaid.ui.theme.HospitalAidTheme
 
 @Composable
-fun LoginScreen(modifier: Modifier = Modifier)
+fun LoginScreen(navController: NavController,modifier: Modifier = Modifier)
 {
     var email by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
@@ -111,8 +112,8 @@ fun LoginScreen(modifier: Modifier = Modifier)
                     .padding(start = 20.dp, bottom = 10.dp, end = 20.dp, top = 10.dp)
                 )
             Button(
-                onClick = {/*TODO: LOGIN BUTTON*/
-
+                onClick = {
+                          navController.navigate("home")
                 },
                 modifier= Modifier
                     .fillMaxWidth()
@@ -125,7 +126,8 @@ fun LoginScreen(modifier: Modifier = Modifier)
                 text = "Register",
                 fontStyle = FontStyle.Italic,
                 modifier = Modifier.clickable {
-                    /*TODO: REGISTER SCREEN NAVIGATION*/
+
+                    navController.navigate(AuthScreen.SignIn.route)
                 })
         }
 
@@ -138,7 +140,7 @@ fun LoginScreen(modifier: Modifier = Modifier)
 fun LoginScreenPreview()
 {
     HospitalAidTheme {
-        LoginScreen()
+       // LoginScreen(NavController())
     }
 
 }

@@ -1,5 +1,8 @@
 package com.example.hospitalaid.ui.screens.bottombar
 
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.slideInVertically
+import androidx.compose.animation.slideOutVertically
 import androidx.compose.foundation.layout.RowScope
 import androidx.compose.material.BottomNavigation
 import androidx.compose.material.BottomNavigationItem
@@ -7,6 +10,7 @@ import androidx.compose.material.Text
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
@@ -19,7 +23,7 @@ import com.example.hospitalaid.ui.theme.md_theme_light_background
 import com.example.hospitalaid.ui.theme.md_theme_light_primaryContainer
 
 @Composable
-fun BottomBar(navController: NavHostController)
+fun BottomBar(bottomBarState:MutableState<Boolean>,navController: NavHostController)
 {
     val screens = listOf(
         BottomBarScreen.Appointment,
@@ -30,13 +34,22 @@ fun BottomBar(navController: NavHostController)
     val navBackStackEntry by navController.currentBackStackEntryAsState()
     val currentDestination = navBackStackEntry?.destination
 
-    BottomNavigation(
-        backgroundColor = md_theme_light_primaryContainer
-    ) {
-        screens.forEach{screen->
-            AddItem(screen = screen,currentDestination = currentDestination,navController = navController)
+    
+    AnimatedVisibility(
+        visible = bottomBarState.value,
+        enter = slideInVertically(initialOffsetY = {it}),
+        exit = slideOutVertically(targetOffsetY = {it}),
+        content = {
+            BottomNavigation(
+                backgroundColor = md_theme_light_primaryContainer
+            ) {
+                screens.forEach{screen->
+                    AddItem(screen = screen,currentDestination = currentDestination,navController = navController)
+                }
+            }
         }
-    }
+    )
+
 }
 
 @Composable
