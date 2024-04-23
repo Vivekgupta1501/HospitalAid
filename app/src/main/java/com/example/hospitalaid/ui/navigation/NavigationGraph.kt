@@ -26,7 +26,7 @@ fun NavigationGraph(navController: NavHostController,modifier:Modifier = Modifie
             {
                 LoginScreen(navController = navController)
             }
-            composable(route = AuthScreen.Login.route)
+            composable(route = AuthScreen.SignIn.route)
             {
                 SignInScreen()
             }
@@ -44,10 +44,10 @@ fun NavigationGraph(navController: NavHostController,modifier:Modifier = Modifie
             {
                 MedicationScreen()
             }
-            composable(route =BottomBarScreen.DoctorsNote.route)
+           /* composable(route =BottomBarScreen.DoctorsNote.route)
             {
                 DoctorsNoteScreen()
-            }
+            }*/
         }
     }
 }

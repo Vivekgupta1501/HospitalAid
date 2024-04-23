@@ -23,10 +23,10 @@ sealed class BottomBarScreen(
         title = "Medications",
         route = "Medications",
         icon = R.drawable.baseline_medication_24
-    )
+    )/*
     object DoctorsNote: BottomBarScreen(
         title = "Doctors Note",
         route = "Doctors Note",
         icon = R.drawable.baseline_lightbulb_24
-    )
+    )*/
 }

@@ -30,7 +30,7 @@ fun AppointmentScreen()
         1,2,3,4,5,6,7,8,9
     )
 
-LazyColumn(modifier = Modifier.padding(2.dp)){
+LazyColumn(modifier = Modifier.padding(start = 6.dp,bottom = 2.dp,end = 6.dp, top = 2.dp)){
     items(items = list){list->
         AppointmentCard()
         }
@@ -44,7 +44,7 @@ fun AppointmentCard()
         Column(Modifier.fillMaxWidth()) {
                 Row {
                     Image(
-                        painter = painterResource(id = R.drawable.logo),
+                        painter = painterResource(id = R.drawable.doc_profile),
                          contentDescription = "Profile Picture",
                         modifier = Modifier
                             .size(124.dp)

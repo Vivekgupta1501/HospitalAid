@@ -44,10 +44,11 @@ fun MainScreen(){
 
     when(navBackStackEntry?.destination?.route)
     {
+        /*
         BottomBarScreen.DoctorsNote.route->{
             bottomBarState.value = true
             topBarState.value = true
-        }
+        }*/
         BottomBarScreen.Appointment.route->{
             bottomBarState.value = true
             topBarState.value = true

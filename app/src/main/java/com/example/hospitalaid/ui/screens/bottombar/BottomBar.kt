@@ -28,7 +28,6 @@ fun BottomBar(bottomBarState:MutableState<Boolean>,navController: NavHostControl
     val screens = listOf(
         BottomBarScreen.Appointment,
         BottomBarScreen.Lab,
-        BottomBarScreen.DoctorsNote,
         BottomBarScreen.Medications
     )
     val navBackStackEntry by navController.currentBackStackEntryAsState()

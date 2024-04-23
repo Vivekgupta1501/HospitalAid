@@ -22,8 +22,9 @@ fun BottomNavGraph(navController: NavHostController,modifier: Modifier = Modifie
         composable(route = BottomBarScreen.Medications.route){
             MedicationScreen()
         }
+        /*
         composable(route = BottomBarScreen.DoctorsNote.route){
             DoctorsNoteScreen()
-        }
+        }*/
     }
 }
