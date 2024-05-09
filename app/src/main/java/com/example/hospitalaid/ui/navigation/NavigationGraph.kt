@@ -6,6 +6,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navigation
+import com.example.hospitalaid.model.User
 import com.example.hospitalaid.ui.screens.authScreen.AuthScreen
 import com.example.hospitalaid.ui.screens.authScreen.LoginScreen
 import com.example.hospitalaid.ui.screens.authScreen.SignInScreen
@@ -14,21 +15,23 @@ import com.example.hospitalaid.ui.screens.patientScreen.AppointmentScreen
 import com.example.hospitalaid.ui.screens.patientScreen.DoctorsNoteScreen
 import com.example.hospitalaid.ui.screens.patientScreen.LabScreen
 import com.example.hospitalaid.ui.screens.patientScreen.MedicationScreen
+import com.example.hospitalaid.ui.screens.profileScreen
+import com.example.hospitalaid.viewModel.AppViewModel
 
 
 @Composable
-fun NavigationGraph(navController: NavHostController,modifier:Modifier = Modifier)
+fun NavigationGraph(navController: NavHostController,modifier:Modifier = Modifier,viewModel: AppViewModel,user: User)
 {
-    NavHost(navController = navController, startDestination = "auth", modifier = modifier){
+    NavHost(navController = navController, startDestination = if(viewModel.userLoggedInStatus()) "home" else "auth", modifier = modifier){
         navigation(startDestination = AuthScreen.Login.route,route = "auth")
         {
             composable(route = AuthScreen.Login.route)
             {
-                LoginScreen(navController = navController)
+                LoginScreen(navController = navController,viewModel = viewModel,user = user)
             }
             composable(route = AuthScreen.SignIn.route)
             {
-                SignInScreen()
+                SignInScreen(navController = navController,viewModel = viewModel,user = user)
             }
         }
         navigation(startDestination = BottomBarScreen.Appointment.route, route = "home"){
@@ -43,6 +46,10 @@ fun NavigationGraph(navController: NavHostController,modifier:Modifier = Modifie
             composable(route =BottomBarScreen.Medications.route)
             {
                 MedicationScreen()
+            }
+            composable(route = BottomBarScreen.Profile.route)
+            {
+                profileScreen(viewModel, user,navController)
             }
            /* composable(route =BottomBarScreen.DoctorsNote.route)
             {

@@ -1,5 +1,6 @@
 package com.example.hospitalaid.ui.screens.authScreen
 
+import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -30,10 +31,12 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.hospitalaid.R
+import com.example.hospitalaid.model.User
 import com.example.hospitalaid.ui.theme.HospitalAidTheme
+import com.example.hospitalaid.viewModel.AppViewModel
 
 @Composable
-fun LoginScreen(navController: NavController,modifier: Modifier = Modifier)
+fun LoginScreen(navController: NavController,modifier: Modifier = Modifier,viewModel: AppViewModel,user: User)
 {
     var email by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
@@ -113,7 +116,15 @@ fun LoginScreen(navController: NavController,modifier: Modifier = Modifier)
                 )
             Button(
                 onClick = {
-                          navController.navigate("home")
+                    if(viewModel.userLoggedInStatus())
+                    {
+                        // Log.d("USER","Condition hit")
+                        navController.navigate("home")
+                    }
+                            viewModel.LoginUser(email, password,navController)
+
+
+
                 },
                 modifier= Modifier
                     .fillMaxWidth()

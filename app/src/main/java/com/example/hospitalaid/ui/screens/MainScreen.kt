@@ -23,6 +23,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.example.hospitalaid.R
+import com.example.hospitalaid.model.User
 import com.example.hospitalaid.ui.navigation.NavigationGraph
 import com.example.hospitalaid.ui.screens.authScreen.LoginScreen
 import com.example.hospitalaid.ui.screens.bottombar.BottomBar
@@ -31,11 +32,12 @@ import com.example.hospitalaid.ui.screens.bottombar.BottomNavGraph
 import com.example.hospitalaid.ui.theme.HospitalAidTheme
 import com.example.hospitalaid.ui.theme.md_theme_light_primary
 import com.example.hospitalaid.ui.theme.md_theme_light_primaryContainer
+import com.example.hospitalaid.viewModel.AppViewModel
 
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun MainScreen(){
+fun MainScreen(viewModel: AppViewModel,user: User){
     val navController = rememberNavController()
     val bottomBarState  = rememberSaveable { mutableStateOf(false) }
     val topBarState  = rememberSaveable { mutableStateOf(false) }
@@ -61,6 +63,10 @@ fun MainScreen(){
             bottomBarState.value = true
             topBarState.value = true
         }
+        BottomBarScreen.Profile.route->{
+            bottomBarState.value = true
+            topBarState.value = true
+        }
         else ->
         {
             bottomBarState.value = false
@@ -71,7 +77,7 @@ fun MainScreen(){
     HospitalAidTheme {
        Scaffold(topBar = { TopBar(topBarState) },
            bottomBar = { BottomBar(bottomBarState = bottomBarState,navController = navController) }) { innerPadding->
-           NavigationGraph(navController = navController, modifier = Modifier.padding(innerPadding))
+           NavigationGraph(navController = navController, modifier = Modifier.padding(innerPadding),viewModel = viewModel,user = user)
 
        }
       // LoginScreen()
@@ -102,7 +108,7 @@ fun TopBar(topBarState: MutableState<Boolean>)
 @Composable
 fun MainScreenPreview()
 {
-    MainScreen()
+    MainScreen(AppViewModel(),User())
 }
 
 

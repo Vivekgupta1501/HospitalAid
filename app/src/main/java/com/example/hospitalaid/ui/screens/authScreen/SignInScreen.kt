@@ -30,11 +30,14 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import com.example.hospitalaid.R
+import com.example.hospitalaid.model.User
 import com.example.hospitalaid.ui.theme.HospitalAidTheme
+import com.example.hospitalaid.viewModel.AppViewModel
 
 @Composable
-fun SignInScreen(modifier: Modifier = Modifier)
+fun SignInScreen(modifier: Modifier = Modifier,viewModel: AppViewModel,user: User,navController: NavController)
 {
 
     var email by remember { mutableStateOf("") }
@@ -211,7 +214,13 @@ fun SignInScreen(modifier: Modifier = Modifier)
             )
             Button(
                 onClick = {
-                    /*TODO: SIGIN BUTTON*/
+                        viewModel.updateUser(email, password, age, name)
+                          viewModel.signIn(email, password)
+                    if(viewModel.userLoggedInStatus())
+                    {
+                        navController.navigate("home")
+                    }
+
                 },
                 modifier= Modifier
                     .fillMaxWidth()
@@ -221,7 +230,7 @@ fun SignInScreen(modifier: Modifier = Modifier)
             }
             Text(text = "Already Registered")
             Text(text = "Login", fontStyle = FontStyle.Italic, modifier = Modifier.clickable {
-                /*TODO: TO SIGNIN SCREEN*/
+                navController.navigate(AuthScreen.Login.route)
             }
             )
         }
@@ -237,7 +246,7 @@ fun SignInScreen(modifier: Modifier = Modifier)
 fun SignInScreenPreview()
 {
     HospitalAidTheme {
-        SignInScreen()
+       // SignInScreen(Modifier ,AppViewModel(),User(),N)
     }
 
 }
